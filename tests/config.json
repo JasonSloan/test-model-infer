@@ -1,0 +1,134 @@
+{
+    "test_type": "Detect",
+    "log_mode": "ConsoleSink",
+    "log_level": "warn",
+    "Detect": {
+        "nickName": "whatever",
+        "modelPath_common": "v11-fp16-kfold4-1output.xml",
+        "batch_size": 1,
+        "conf_thre": 0.4,
+        "nms_thre": 0.4,
+        "keypoint_visible_thre": 0.5,
+        "device": "CPU",
+        "max_det": 100,
+        
+        "input_dir": "../../inputs/images",
+        "use_yuv": false,
+        "channel_id": "ch01",
+        "max_qsize": 1000,
+        "n_iters": 10000,
+
+        "log_file": "logs/detect.log",
+        "modelLog": true,
+        "inferLog": false,
+
+        "save_image": true,
+
+        "save_tojson": false,
+        "saveGap": 1,
+        "saveMax": 3000,
+        "use_custom_timestamp": true,
+        "timestamp_gap": 25,
+        "sleep_gap": 50,
+
+        "use_callback": true,
+        "multi_label": true
+    },
+    "DetectComments": {
+        "modelPath_common": "模型路径",
+        "batch_size": "批量大小",
+        "conf_thre": "置信度阈值",
+        "nms_thre": "nms-iou阈值",
+        "keypoint_visible_thre": "关键点可见阈值",
+        "device": "在登临设备上此项不生效",
+        "max_det": "在登临设备上此项不生效",
+        "input_dir": "推理数据, 可以是rtsp, 可以是包含图片的文件夹, 可以是视频文件",
+        "use_yuv": "是否使用yuv的图片数据作为输入, false时使用RGB数据作为输入",
+        "channel_id": "摄像头通道号",
+        "max_qsize": "最大队列长度, 超过队列长度会优先扔掉最开始的数据",
+        "n_iters": "循环测试多少次, 等于-1时代表一直循环, 注意, 如果use_callback为true且niters>1, 可能会出现问题, 因为只new出了一批图片作为输入, 在循环的时候,如果超过队列长度,可能会将某些部分的图片数据释放",
+        "log_file": "日志生成路径, log_mode需为FileSink或者MultiSink",
+        "modelLog": "是否打印模型加载日志",
+        "inferLog": "是否打印模型推理日志",
+        "save_image": "是否将框画在图片上后到本地(为true的话, 每一帧都会保存到本地)",
+        
+        "save_tojson": "是否保存results结构体到json文件",
+        "saveGap": "每saveGap张图存一次result(save_tojson的二级配置)",
+        "saveMax": "总共存saveMax个result(save_tojson的二级配置)",
+        "use_custom_timestamp": "是直接获取本地时间戳还是自己手动设置时间戳",
+        "timestamp_gap": "如果是自己手动设置时间戳, 那么没两张图之间的时间差",
+        "sleep_gap": "每两张图推理之间实际sleep了多长时间",
+
+        "use_callback": "true: 使用add_images接口; false: 直接使用forward接口",
+        "multi_label": "是否多标签"
+    },
+    "Track": {
+        "agg_iters": 100,
+        "track_label": 0,
+        "fps": 30,
+        "track_buffer": 150,
+        "track_thre": 0.4,
+        "high_thre": 0.6,
+        "match_thre": 0.8,
+
+        "modelPath_common": "v5-fp16-exp3-1output.engine",
+        "batch_size": 1,
+        "conf_thre": 0.4,
+        "nms_thre": 0.4,
+        "device": "CPU",
+        "max_det": 100,
+        
+        "input_dir": "../../inputs/images",
+        "use_yuv": false,
+
+        "log_file": "logs/detect.log",
+        "modelLog": true,
+        "inferLog": false,
+
+        "save_image": true,
+        "save_video": false,
+
+        "save_tojson": false,
+        "saveGap": 1,
+        "saveMax": 10000,
+        "save_dir": "outputs/",
+        "video_save_name": "1.mp4",
+        "jsonfile_save_name": "track.json",
+
+        "use_callback": false,
+        "multi_label": true
+    },
+    "TrackComments": {
+        "agg_iters": "每agg_iters算一下跟踪的平均耗时",
+        "track_label": "要跟踪的目标类别",
+        "fps": "视频帧率",
+        "track_buffer": "对于丢失目标缓存的的帧数",
+        "track_thre": "按照该阈值区分高分框和低分框",
+        "high_thre": "大于该阈值的产生新track",
+        "match_thre": "两个框之间的匹配阈值",
+
+        "modelPath_common": "模型路径",
+        "batch_size": "批量大小",
+        "conf_thre": "置信度阈值",
+        "nms_thre": "nms-iou阈值",
+        "device": "在登临设备上此项不生效",
+        "max_det": "在登临设备上此项不生效",
+        "input_dir": "推理数据, 可以是rtsp, 可以是包含图片的文件夹, 可以是视频文件",
+        "use_yuv": "是否使用yuv的图片数据作为输入, false时使用RGB数据作为输入",
+        "log_file": "日志生成路径, log_mode需为FileSink或者MultiSink",
+        "modelLog": "是否打印模型加载日志",
+        "inferLog": "是否打印模型推理日志",
+        "save_image": "是否将框画在图片上后到本地(为true的话, 每一帧都会保存到本地)",
+        "save_video": "是否保存跟踪视频",
+        
+        "save_tojson": "是否保存results结构体到json文件",
+        "saveGap": "每saveGap张图存一次result(save_tojson的二级配置)",
+        "saveMax": "总共存saveMax个result(save_tojson的二级配置)",
+        "save_dir": "图片或者视频保存目录",
+        "video_save_name": "保存下来的视频文件名称",
+        "jsonfile_save_name": "保存下来的json文件名称",
+
+        "use_callback": "true: 使用add_images接口; false: 直接使用forward接口",
+        "multi_label": "是否多标签"
+    }
+}
